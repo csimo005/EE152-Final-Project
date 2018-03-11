@@ -1,4 +1,4 @@
-function [ error ] = compare( left_1, right_1, left_2, right_2 )
+function [ rmse ] = compare( left_1, right_1, left_2, right_2 )
 %COMPARE Summary of this function goes here
 %   Detailed explanation goes here
     [p1, xy_l_1, xy_r_1] = reconstruction(left_1, right_1);
@@ -7,18 +7,18 @@ function [ error ] = compare( left_1, right_1, left_2, right_2 )
     [IDX_l, D_l] = knnsearch(xy_l_1, xy_l_2);
     [IDX_r, D_r] = knnsearch(xy_r_1, xy_r_2);
     
-    error = 0;
+    rmse = 0;
     matches = 0;
     for i=1:size(IDX_l)
         if IDX_l(i) == IDX_r(i) && D_l(i) < 1 && D_r(i) < 1
-            error = error + sqrt(sum((p1(IDX_l(i)) - p2(i)).^2));
+            rmse = rmse + sum((p1(:,IDX_l(i)) - p2(:,i)).^2);
             matches = matches + 1;
         end
     end
     if matches
-        error = error./matches;
+        rmse = sqrt(rmse./matches);
     else
-        error = -1;
+        rmse = -1;
     end
 end
 
