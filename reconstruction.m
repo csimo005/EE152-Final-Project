@@ -24,11 +24,11 @@ function [ points, points_l, points_r ] = reconstruction( im_left, im_right )
     pair_lr = matchFeatures(fl,fr);
             
     % convert from image position, to position on image plane
-    points_l = (vptsl.Location(pair_lr(:,1),:)-[l_cx l_cy]);
+    points_l = bsxfun(@minus,vptsl.Location(pair_lr(:,1),:),[l_cx l_cy]);
     points_l(:,1) = points_l(:,1).*(0.0036/sz(1));
     points_l(:,2) = points_l(:,2).*(0.0048/sz(2));
      
-    points_r = (vptsr.Location(pair_lr(:,2),:)-[r_cx r_cy]);
+    points_r = bsxfun(@minus, vptsr.Location(pair_lr(:,2),:), [r_cx r_cy]);
     points_r(:,1) = points_r(:,1).*(0.0036/sz(1));
     points_r(:,2) = points_r(:,2).*(0.0048/sz(2));
         
@@ -37,7 +37,7 @@ function [ points, points_l, points_r ] = reconstruction( im_left, im_right )
     points(1,:) = (points(3,:)./(focal_length)).*points_l(:,1)';
     points(2,:) = (points(3,:)./(focal_length)).*points_l(:,2)';
     
-    points_1 = vptsl.Location(pair_lr(:,1));
+    points_l = vptsl.Location(pair_lr(:,1));
     points_r = vptsr.Location(pair_lr(:,2));
 end
 

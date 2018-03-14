@@ -20,11 +20,11 @@ imagesc(log(abs(fftshift(l_fft_img))));
 fftmask = ones(size(l_fft_img));
 
 
-xlow = size(l_fft_img,2)/2 - 30;
-xhigh = size(l_fft_img,2)/2 + 30;
+xlow = size(l_fft_img,2)/2 - 1;
+xhigh = size(l_fft_img,2)/2 + 1;
 
-ylow = size(l_fft_img,1)/2 - 30;
-yhigh = size(l_fft_img,1)/2 + 32;
+ylow = size(l_fft_img,1)/2 - 1;
+yhigh = size(l_fft_img,1)/2 + 1;
 
 
 % Removal of low frq
@@ -44,4 +44,4 @@ figure;
 imagesc(log(abs(fftshift(l_lpf_fft_img))));
 
 figure;
-imshow(ifft2(l_lpf_fft_img));
+imshow(real(ifft2(l_lpf_fft_img)));
