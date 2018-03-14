@@ -16,7 +16,7 @@ function [ rmse ] = compare( left_1, right_1, left_2, right_2 )
         end
     end
     if matches
-        rmse = sqrt(rmse./matches);
+        rmse = sqrt(rmse./(3*matches));
     else
         rmse = -1;
     end
