@@ -1,4 +1,4 @@
-function [ lpf_img ] = fftCompress( img )
+function [ lpf_img ] = fftCompress( img, blksize )
 %FFTCOMPRESS Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,11 +6,11 @@ fft_img = fft2(img);
 
 fftmask = ones(size(fft_img));
 
-xlow = size(fft_img,2)/2 - 30;
-xhigh = size(fft_img,2)/2 + 30;
+xlow = size(fft_img,2)/2 - blksize;
+xhigh = size(fft_img,2)/2 + blksize;
 
-ylow = size(fft_img,1)/2 - 30;
-yhigh = size(fft_img,1)/2 + 30;
+ylow = size(fft_img,1)/2 - blksize;
+yhigh = size(fft_img,1)/2 + blksize;
 
 
 % Removal of low frq
